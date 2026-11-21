@@ -1,0 +1,7 @@
+.app-header { display: flex; align-items: center; gap: 24px; padding: 12px 24px; border-bottom: 1px solid #d1d5db; background: #ffffff; }
+.app-header__title { margin: 0; font-size: 20px; }
+.app-nav { display: flex; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.app-nav__item { padding: 6px 14px; border: 0; border-radius: 6px; background: transparent; color: #374151; font: inherit; cursor: pointer; }
+.app-nav__item:hover { background: #f3f4f6; }
+.app-nav__item:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
+.app-nav__item[aria-current='page'] { background: #dbeafe; color: #1e40af; font-weight: 600; }

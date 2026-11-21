@@ -1,11 +1,12 @@
 import preview from '../../.storybook/preview';
-import { expect, mocked } from 'storybook/test';
+import { expect, fn, mocked } from 'storybook/test';
 import { createTask } from '../api/tasks';
 import { AddTaskPage } from './AddTaskPage';
 
 const meta = preview.meta({
   component: AddTaskPage,
   tags: [],
+  args: { onAdded: fn() },
   beforeEach() {
     mocked(createTask).mockImplementation(async (input) => ({
       ...input,
@@ -23,20 +24,35 @@ export const Default = meta.story({
 });
 
 export const EmptyTitleError = meta.story({
-  play: async ({ canvas, userEvent }) => {
+  play: async ({ args, canvas, userEvent }) => {
     await userEvent.click(canvas.getByRole('button', { name: '追加' }));
     await expect(await canvas.findByText('タイトルを入れてください')).toBeVisible();
     await expect(createTask).not.toHaveBeenCalled();
+    await expect(args.onAdded).not.toHaveBeenCalled();
   },
 });
 
 export const SubmitTask = meta.story({
-  play: async ({ canvas, userEvent }) => {
+  play: async ({ args, canvas, userEvent }) => {
     const title = canvas.getByLabelText('タイトル');
     await userEvent.type(title, '牛乳を買う');
     await userEvent.selectOptions(canvas.getByRole('combobox', { name: '優先度' }), 'high');
     await userEvent.click(canvas.getByRole('button', { name: '追加' }));
     await expect(createTask).toHaveBeenCalledWith({ title: '牛乳を買う', priority: 'high' });
     await expect(title).toHaveValue('');
+    await expect(args.onAdded).toHaveBeenCalledWith(expect.objectContaining({ id: 't1', title: '牛乳を買う' }));
+  },
+});
+
+export const SubmitAndKeepGoing = meta.story({
+  play: async ({ args, canvas, userEvent }) => {
+    const title = canvas.getByLabelText('タイトル');
+    await userEvent.click(canvas.getByRole('checkbox', { name: '追加したあとも続けて入力する' }));
+    await userEvent.type(title, '牛乳を買う');
+    await userEvent.click(canvas.getByRole('button', { name: '追加' }));
+    await expect(createTask).toHaveBeenCalledWith({ title: '牛乳を買う', priority: 'medium' });
+    await expect(title).toHaveValue('');
+    await expect(title).toHaveFocus();
+    await expect(args.onAdded).not.toHaveBeenCalled();
   },
 });

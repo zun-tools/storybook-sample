@@ -3,12 +3,17 @@ import type { FormEvent } from 'react';
 import { createTask } from '../api/tasks';
 import { Button, Card, Checkbox, Select, TextField } from '../components';
 import { PRIORITY_LABELS } from '../types';
-import type { Priority } from '../types';
+import type { Priority, Task } from '../types';
 import './AddTaskPage.css';
 
 const OPTIONS = Object.entries(PRIORITY_LABELS).map(([value, label]) => ({ value, label }));
 
-export function AddTaskPage() {
+export interface AddTaskPageProps {
+  /** タスクを追加し終えたとき。「続けて入力する」がオンのときは呼ばれず、この画面に残る */
+  onAdded?: (task: Task) => void;
+}
+
+export function AddTaskPage({ onAdded }: AddTaskPageProps) {
   const [title, setTitle] = useState('');
   const [priority, setPriority] = useState<Priority>('medium');
   const [keepGoing, setKeepGoing] = useState(false);
@@ -23,10 +28,11 @@ export function AddTaskPage() {
     }
     setError('');
     setSending(true);
-    await createTask({ title: title.trim(), priority });
+    const task = await createTask({ title: title.trim(), priority });
     setSending(false);
     setTitle('');
     if (keepGoing) document.getElementById('task-title')?.focus();
+    else onAdded?.(task);
   }
 
   return (
