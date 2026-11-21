@@ -1,0 +1,2 @@
+.add-page { max-width: 480px; margin: 24px auto; padding: 0 16px; }
+.add-page__fields { display: flex; flex-direction: column; gap: 16px; }

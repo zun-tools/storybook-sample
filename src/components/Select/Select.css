@@ -1,0 +1,10 @@
+.select { display: flex; flex-direction: column; gap: 4px; }
+.select label { font-size: 14px; color: #4b5563; }
+.select select {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1f2937;
+  font: inherit;
+}

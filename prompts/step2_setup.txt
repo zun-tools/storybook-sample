@@ -1,0 +1,1 @@
+storybook-setup スキルを使って、このアプリに Storybook を整えてください。

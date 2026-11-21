@@ -1,0 +1,14 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 6px;
+  font: inherit;
+  cursor: pointer;
+}
+.btn--primary { background: #1d4ed8; color: #ffffff; }
+.btn--secondary { background: #e5e7eb; color: #1f2937; }
+.btn:disabled { opacity: 0.6; cursor: default; }
+.btn .spinner__ring { border-top-color: currentColor; }

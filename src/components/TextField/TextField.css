@@ -1,0 +1,11 @@
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label { font-size: 14px; color: #4b5563; }
+.field input {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1f2937;
+  font: inherit;
+}
+.field__error { margin: 0; font-size: 13px; color: #b91c1c; }
