@@ -1,0 +1,12 @@
+.task-list { max-width: 640px; margin: 24px auto; padding: 0 16px; }
+.task-list__filters { display: grid; grid-template-columns: 1fr 160px; gap: 16px; align-items: start; margin-bottom: 16px; }
+.task-list__loading { display: flex; justify-content: center; padding: 32px 0; }
+.task-list__items { list-style: none; margin: 0; padding: 0; }
+.task-list__item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid #e5e7eb; }
+.task-list__title { overflow-wrap: anywhere; }
+.task-list__title--done { color: #4b5563; text-decoration: line-through; }
+.task-list__badges { display: flex; gap: 8px; flex-shrink: 0; }
+
+@media (max-width: 480px) {
+  .task-list__filters { grid-template-columns: 1fr; }
+}
